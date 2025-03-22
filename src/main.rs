@@ -1,8 +1,4 @@
-use std::{
-    io::{Write, stdout},
-    thread,
-    time::Duration,
-};
+use std::{thread, time::Duration};
 
 use clap::Parser;
 use serial2::{CharSize, FlowControl, Parity, SerialPort, Settings, StopBits};
@@ -96,12 +92,12 @@ fn main() -> Result<()> {
     port.set_dtr(args.dtr)?;
     port.set_rts(args.rts)?;
 
-    let mut buffer = vec![];
+    let mut buffer = [0; 256];
     loop {
         match port.read(&mut buffer) {
-            Ok(_readed) => {
-                stdout().write_all(&buffer)?;
-                stdout().flush()?;
+            Ok(readed) => {
+                println!("readed: {}", readed);
+                println!("{:?}", buffer);
             }
             Err(err) => {
                 println!("Can not read from port: {:?}", err);
