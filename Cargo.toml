@@ -1,0 +1,8 @@
+[package]
+name = "com_port_reader"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+clap = { version = "4.5.31", features = ["derive"] }
+serial2 = "0.2.28"
